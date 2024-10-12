@@ -46,6 +46,41 @@ export function addCategory(req,res){
 
 }
 
+export function updateCategory(req,res){
+    const user = req.user
+    if(user == null){
+        return res.status(403).json({
+            message : "Login first to add category"
+        })
+    }
+    if(user.type != "admin"){
+        return res.status(403).json({
+            message : "You don't have permission to add category"
+        })
+    }
+    const name = req.body.name
+    const updatedFields = {};
+
+    
+    if (req.body.description) {
+        updatedFields.description = req.body.description;
+    }
+    if (req.body.price) {
+        updatedFields.price = req.body.price;
+    }
+
+    Category.updateOne({ name: name }, { $set: updatedFields }).then(()=>{
+        res.status(200).json({
+            message : "Category updated successfully"
+        })
+    }).catch(()=>{
+        res.status(500).json({
+            message : "Failed to update the category"
+        })
+    })
+
+}
+
 export function getCategory(req,res){
     Category.find().then((categoryList)=>{
         res.status(200).json({
@@ -53,4 +88,6 @@ export function getCategory(req,res){
         })
     })
 }
+
+
 
