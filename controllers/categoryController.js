@@ -50,12 +50,12 @@ export function updateCategory(req,res){
     const user = req.user
     if(user == null){
         return res.status(403).json({
-            message : "Login first to add category"
+            message : "Login first to update category"
         })
     }
     if(user.type != "admin"){
         return res.status(403).json({
-            message : "You don't have permission to add category"
+            message : "You don't have permission to update category"
         })
     }
     const name = req.body.name
@@ -79,6 +79,32 @@ export function updateCategory(req,res){
         })
     })
 
+}
+
+export function deleteCategory(req,res){
+    const user = req.user
+    if(user == null){
+        return res.status(403).json({
+            message : "Login first to delete category"
+        })
+    }
+    if(user.type != "admin"){
+        return res.status(403).json({
+            message : "You don't have permission to delete category"
+        })
+    }
+
+    const name = req.body.name
+
+    Category.deleteOne({name : name}).then(()=>{
+        res.status(200).json({
+            message : "Category deleted successfully"
+        })
+    }).catch(()=>{
+        res.status(500).json({
+            message : "Failed to delete category"
+        })
+    })
 }
 
 export function getCategory(req,res){
