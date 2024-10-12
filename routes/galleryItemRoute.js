@@ -1,11 +1,11 @@
 import express from "express";
-import { createGalleryItem, getGalleryItem } from "../controllers/galleryItemController.js";
+import { authenticateToken, createGalleryItem, getGalleryItem } from "../controllers/galleryItemController.js";
 
 
 
 const galleryItemRouter = express.Router();
 
-galleryItemRouter.post("/", createGalleryItem);
+galleryItemRouter.post("/",authenticateToken, createGalleryItem);
 galleryItemRouter.get("/",getGalleryItem);
 
 export default galleryItemRouter;

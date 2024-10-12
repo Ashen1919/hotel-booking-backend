@@ -63,7 +63,7 @@ export function deleteUser(req,res){
 
 export function loginUser(req,res){
     const credential = req.body
-    User.findOne({email : credential.email, password : credential.password}).then((user)=>{
+    User.findOne({email : credential.email}).then((user)=>{
         if(user == null){
             res.status(404).json({
                 message : "User Not Found"
