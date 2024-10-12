@@ -2,14 +2,15 @@ import bodyParser from "body-parser";
 import express from "express";
 import userRouter from "./routes/userRouter.js";
 import mongoose from "mongoose";
-import jwt from "jsonwebtoken";
 import galleryItemRouter from "./routes/galleryItemRoute.js";
+import categoryRouter from "./routes/categoryRoute.js";
 
 const app = express();
 app.use(bodyParser.json());
 
 app.use("/api/users/",userRouter)
 app.use("/api/gallery/",galleryItemRouter)
+app.use("/api/category/", categoryRouter)
 
 const mongoUrl = "mongodb+srv://adminAshen:ashen2001@cluster0.aceud.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 

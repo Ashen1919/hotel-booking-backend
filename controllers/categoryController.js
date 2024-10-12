@@ -1,4 +1,4 @@
-import Category from "../models/category";
+import Category from "../models/category.js";
 import jwt from 'jsonwebtoken';
 
 export function authenticateToken(req, res, next) {
@@ -37,10 +37,10 @@ export function addCategory(req,res){
     newCategory.save().then(()=>{
         res.status(200).json({
             message : "New category added successfully"
-        }).catch(()=>{
-            res.status(500).json({
-                message : "Failed to create new category"
-            })
+        })
+    }).catch(()=>{
+        res.status(500).json({
+            message : "Failed to create new category"
         })
     })
 
