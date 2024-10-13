@@ -78,7 +78,7 @@ export function deleteCategory(req,res){
         })
     }
 
-    const name = req.body.name
+    const name = req.params.name
 
     Category.deleteOne({name : name}).then(()=>{
         res.status(200).json({
@@ -98,6 +98,26 @@ export function getCategory(req,res){
         })
     })
 }
+
+export function getCategoryByName(req, res) {
+    const name = req.params.name;
+    Category.findOne({ name: name }).then((result) => {
+        if (result == null) {
+            res.status(404).json({
+                message: "Category not found"
+            });
+        } else {
+            res.status(200).json({
+                category: result
+            });
+        }
+    }).catch(() => {
+        res.status(500).json({
+            message: "Failed to get category"
+        });
+    });
+}
+
 
 
 

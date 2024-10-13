@@ -13,7 +13,16 @@ const categorySchema = mongoose.Schema({
     price : {
         type : String,
         required : true
-    }
+    },
+    image : {
+        type : String,
+        default : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREO3tkIJnmJZcWmgLLR-z973QVHQ8zbwDGnw&s"
+    },
+    features : [
+        {
+            type : String
+        }
+    ]
 })
 
 const Category = mongoose.model("category", categorySchema);
