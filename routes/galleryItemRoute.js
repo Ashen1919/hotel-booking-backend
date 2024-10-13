@@ -1,6 +1,6 @@
 import express from "express";
-import { authenticateToken, createGalleryItem, getGalleryItem } from "../controllers/galleryItemController.js";
-
+import {createGalleryItem, getGalleryItem } from "../controllers/galleryItemController.js";
+import { authenticateToken } from "../index.js";
 
 
 const galleryItemRouter = express.Router();

@@ -2,8 +2,29 @@ import bodyParser from "body-parser";
 import express from "express";
 import userRouter from "./routes/userRouter.js";
 import mongoose from "mongoose";
+import jwt from 'jsonwebtoken';
 import galleryItemRouter from "./routes/galleryItemRoute.js";
 import categoryRouter from "./routes/categoryRoute.js";
+import dotenv from 'dotenv';
+dotenv.config();
+
+export function authenticateToken(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) {
+        return res.status(401).json({ message: 'Token is required' });
+    }
+
+    jwt.verify(token, process.env.JWT_KEY, (err, user) => {
+        if (err) {
+            return res.status(403).json({ message: 'Invalid or expired token' });
+        }
+
+        req.user = user;  
+        next();  
+    });
+}
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,7 +33,7 @@ app.use("/api/users/",userRouter)
 app.use("/api/gallery/",galleryItemRouter)
 app.use("/api/category/", categoryRouter)
 
-const mongoUrl = "mongodb+srv://adminAshen:ashen2001@cluster0.aceud.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const mongoUrl = process.env.MONGO_URL;
 
 mongoose.connect(mongoUrl).then(
     ()=>{

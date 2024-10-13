@@ -82,7 +82,7 @@ export function loginUser(req,res){
                     lastName : user.lastName,
                     type : user.type
                 };
-                const token = jwt.sign(payLoad, "secret", {expiresIn: "48h"});
+                const token = jwt.sign(payLoad, process.env.JWT_KEY, {expiresIn: "48h"});
                 res.json({
                     message : "User Found",
                     user : user,

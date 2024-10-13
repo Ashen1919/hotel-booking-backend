@@ -1,5 +1,6 @@
 import express from 'express'
-import { addCategory, authenticateToken, deleteCategory, getCategory, updateCategory } from "../controllers/categoryController.js";
+import { addCategory,deleteCategory, getCategory, updateCategory } from "../controllers/categoryController.js";
+import { authenticateToken } from "../index.js";
 
 const categoryRouter = express.Router();
 
