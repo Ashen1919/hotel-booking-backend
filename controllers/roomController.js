@@ -1,5 +1,5 @@
 import Room from "../models/room.js";
-import { isValidAdmin } from "./userController,js";
+import { isValidAdmin } from "./userController.js";
 
 
 export function createRoom(req,res){
@@ -8,7 +8,9 @@ export function createRoom(req,res){
             message : "Unauthorized"
         })
     }
-    const newRoom = newRoom(req.body)
+    const room = req.body
+    const newRoom = new Room(room);
+
     newRoom.save().then((result)=>{
         res.status(200).json({
             message : "New Room created successfully",
@@ -77,7 +79,8 @@ export function getRooms(req,res){
 
 export function updateRoom(req,res){
     const roomId = req.params.roomId
-    Room.findByIdAndUpdate({roomId : roomId},req.body).then((result)=>{
+
+    Room.updateOne({roomId : roomId}, req.body).then((result)=>{
         res.status(200).json({
             message : "Updated Successfully",
             result : result
@@ -90,3 +93,16 @@ export function updateRoom(req,res){
     })
 }
 
+export function findRoomByCategory(req,res){
+    const category = req.params.category
+    Room.find({category : category}).then((result)=>{
+        res.status(200).json({
+            message : "Room Found",
+            Room : result
+        })
+    }).catch(()=>{
+        res.status(500).json({
+            message : "Room not found"
+        })
+    })
+}
