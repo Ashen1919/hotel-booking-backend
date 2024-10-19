@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 const galleryItemsSchema = mongoose.Schema({
     name : {
         type : String,
-        required : true
+        required : true,
+        unique : true
     },
     image : {
         type : String,

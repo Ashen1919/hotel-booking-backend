@@ -2,6 +2,16 @@ import jwt from "jsonwebtoken"
 import User from "../models/user.js"
 import bcrypt from "bcrypt"
 
+
+export function isValidAdmin(req){
+    if(req.user == null){
+        return false;
+    }
+    if(req.user.type != "admin"){
+        return false;
+    }
+    return true;
+}
 export function getUser(req,res){
     User.find().then(
         (usersList)=>{

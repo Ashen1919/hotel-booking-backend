@@ -1,16 +1,8 @@
 import Category from "../models/category.js";
 import dotenv from 'dotenv';
+import { isValidAdmin } from "./userController.js";
 dotenv.config();
 
-function isValidAdmin(req){
-    if(req.user == null){
-        return false;
-    }
-    if(req.user.tyoe != "admin"){
-        return false;
-    }
-    return true;
-}
 
 export function addCategory(req,res){
     if(!isValidAdmin(req)){
@@ -62,7 +54,7 @@ export function updateCategory(req,res){
 
 }
 
-export function deleteCategory(req,res){
+export function deleteCategoryByParams(req,res){
     if(!isValidAdmin(req)){
         return res.status(403).json({
             message : "Unauthorized"
@@ -70,6 +62,26 @@ export function deleteCategory(req,res){
     }
 
     const name = req.params.name
+
+    Category.deleteOne({name : name}).then(()=>{
+        res.status(200).json({
+            message : "Category deleted successfully"
+        })
+    }).catch(()=>{
+        res.status(500).json({
+            message : "Failed to delete category"
+        })
+    })
+}
+
+export function deleteCategory(req,res){
+    if(!isValidAdmin(req)){
+        return res.status(403).json({
+            message : "Unauthorized"
+        })
+    }
+
+    const name = req.body.name
 
     Category.deleteOne({name : name}).then(()=>{
         res.status(200).json({
