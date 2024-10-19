@@ -12,6 +12,15 @@ export function isValidAdmin(req){
     }
     return true;
 }
+export function isValidCustomer(req){
+    if(req.user == null){
+        return false;
+    }
+    if(req.user.type != "customer"){
+        return false;
+    }
+    return true;
+}
 export function getUser(req,res){
     User.find().then(
         (usersList)=>{
