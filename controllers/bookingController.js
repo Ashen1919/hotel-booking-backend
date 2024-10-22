@@ -50,3 +50,40 @@ export function getBooking(req,res){
     })
 
 }
+
+export function cancelBooking(req,res){
+    if(!isValidAdmin && !isValidCustomer){
+        res.status(403).json({
+            message : "Unauthorized to cancel booking"
+        })
+    }
+    const bookingId = req.body.bookingId
+    Booking.findOne({bookingId : bookingId}).then((booking)=>{
+        if(!booking){
+            res.status(404).json({
+                message : "Booking Not Found"
+            })
+        }
+        console.log("Booking ID received: ", req.body.bookingId);
+
+        Booking.status = "Cancelled"
+        Booking.reason = req.body.reason || ""
+
+        Booking.save().then((updateBooking)=>{
+            res.status(200).json({
+                message : "Booking cancelled succesfully",
+                Booking : updateBooking
+            })
+        }).catch((err)=>{
+            res.status(500).json({
+                message : "Failed to cancel Booking",
+                Error : err
+            })
+        })
+    }).catch((err)=>{
+        res.status(500).json({
+            message : "Failed to Find",
+            Error : err
+        })
+    })
+}
