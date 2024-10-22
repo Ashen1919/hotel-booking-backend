@@ -1,5 +1,5 @@
 import Booking from "../models/booking.js";
-import { isValidCustomer } from "./userController.js";
+import { isValidAdmin, isValidCustomer } from "./userController.js";
 
 
 export function createBooking(req,res){
@@ -35,4 +35,18 @@ export function createBooking(req,res){
             Error : err
         })
     })
+}
+
+export function getBooking(req,res){
+    Booking.find().then((getBooking)=>{
+        res.status(200).json({
+            List : getBooking
+        })
+    }).catch((err)=>{
+        res.status(500).json({
+            message : "Failed to get Booking List",
+            Error : err
+        })
+    })
+
 }

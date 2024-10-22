@@ -1,9 +1,10 @@
 import express from "express"
 import { authenticateToken } from "../index.js";
-import { createBooking } from "../controllers/bookingController.js";
+import { createBooking, getBooking } from "../controllers/bookingController.js";
 
 const bookingRouter = express.Router();
 
 bookingRouter.post("/", authenticateToken, createBooking )
+bookingRouter.get("/", getBooking)
 
 export default bookingRouter;
