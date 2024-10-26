@@ -8,6 +8,7 @@ import categoryRouter from "./routes/categoryRoute.js";
 import dotenv from 'dotenv';
 import roomRouter from "./routes/roomRoute.js";
 import bookingRouter from "./routes/bookingRoute.js";
+import feedbackRouter from "./routes/feedbackRoute.js";
 dotenv.config();
 
 export function authenticateToken(req, res, next) {
@@ -36,6 +37,7 @@ app.use("/api/gallery/",galleryItemRouter)
 app.use("/api/category/", categoryRouter)
 app.use("/api/rooms/", roomRouter)
 app.use("/api/booking/", bookingRouter)
+app.use("/api/feedback/", feedbackRouter)
 
 const mongoUrl = process.env.MONGO_URL;
 
