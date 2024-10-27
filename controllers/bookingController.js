@@ -8,33 +8,49 @@ export function createBooking(req,res){
             message : "Unauthorized"
         })
     }
+
     const startingId = 1001;
-    Booking.countDocuments({}).then((count)=>{
-        const newId = startingId + count + 1;
-        const newBooking = new Booking({
-            bookingId : newId,
-            roomId : req.body.roomId,
-            email : req.body.email,
-            start : req.body.start,
-            end : req.body.end
-        })
-        newBooking.save().then((result)=>{
-            res.status(200).json({
-                message : "Booking created successfully",
-                result : result
+    const roomId = req.body.roomId
+
+    Booking.findOne({roomId: roomId, status: "Confirmed"}).then((existBooking)=>{
+        if(existBooking){
+            return res.status(400).json({
+                message: "This room is already Booked"
+            })
+        }
+        Booking.countDocuments({}).then((count)=>{
+            const newId = startingId + count + 1;
+            const newBooking = new Booking({
+                bookingId : newId,
+                roomId : req.body.roomId,
+                email : req.body.email,
+                start : req.body.start,
+                end : req.body.end
+            })
+            newBooking.save().then((result)=>{
+                res.status(200).json({
+                    message : "Booking created successfully",
+                    result : result
+                })
+            }).catch((err)=>{
+                res.status(500).json({
+                    message : "Booking creation failed",
+                    error : err
+                })
             })
         }).catch((err)=>{
             res.status(500).json({
                 message : "Booking creation failed",
-                error : err
+                Error : err
             })
         })
     }).catch((err)=>{
         res.status(500).json({
-            message : "Booking creation failed",
-            Error : err
+            message: "Error checking room availability",
+            Error: err
         })
     })
+    
 }
 
 export function getBooking(req,res){
@@ -64,12 +80,11 @@ export function cancelBooking(req,res){
                 message : "Booking Not Found"
             })
         }
-        console.log("Booking ID received: ", req.body.bookingId);
+        
+        const updatedBooking = {status: "Cancel"}
+        
 
-        Booking.status = "Cancelled"
-        Booking.reason = req.body.reason || ""
-
-        Booking.save().then((updateBooking)=>{
+        Booking.updateOne({bookingId: bookingId}, {$set: updatedBooking}).then((updateBooking)=>{
             res.status(200).json({
                 message : "Booking cancelled succesfully",
                 Booking : updateBooking
@@ -84,6 +99,70 @@ export function cancelBooking(req,res){
         res.status(500).json({
             message : "Failed to Find",
             Error : err
+        })
+    })
+}
+
+export function updateBooking(req,res){
+    if(!isValidAdmin && !isValidCustomer){
+        res.status(403).json({
+            message : "Unauthorized to cancel booking"
+        })
+    }
+    const bookingId = req.params.bookingId
+    Booking.findOne({bookingId: bookingId}).then((booking)=>{
+        if(!booking){
+            return res.status(404).json({
+                message: "Booking Not Found"
+            })
+        }
+        const updatedBooking = req.body
+        Booking.updateOne({bookingId: bookingId}, {$set: updatedBooking}).then(()=>{
+            res.status(200).json({
+                message: "Booking updated successfully"
+            })
+        }).catch((err)=>{
+            res.status(500).json({
+                message: "Failed to cancel booking",
+                Error: err
+            })
+        })
+    }).catch((err)=>{
+        res.status(404).json({
+            message: "Failed to find",
+            Error: err
+        })
+    })
+}
+export function confirmBooking(req,res){
+    if(!isValidAdmin(req)){
+        res.status(403).json({
+            message : "Unauthorized to confirm booking"
+        })
+    }
+    const {bookingId, roomId} = req.params
+   
+    Booking.findOne({ bookingId: bookingId, roomId: roomId} ).then((booking)=>{
+        if(!booking){
+            return res.status(404).json({
+                message: "Booking Not Found"
+            })
+        }
+        const updatedBooking = {status: "Confirmed"}
+        Booking.updateOne({bookingId: bookingId}, {$set: updatedBooking}).then(()=>{
+            res.status(200).json({
+                message: "Booking confirmed successfully"
+            })
+        }).catch((err)=>{
+            res.status(500).json({
+                message: "Failed to confirm booking",
+                Error: err
+            })
+        })
+    }).catch((err)=>{
+        res.status(404).json({
+            message: "Failed to find",
+            Error: err
         })
     })
 }
