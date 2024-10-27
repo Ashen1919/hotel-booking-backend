@@ -1,7 +1,13 @@
 import Ticket from "../models/ticketing.js";
-import { isValidAdmin } from "./userController.js";
+import { isValidAdmin, isValidCustomer } from "./userController.js";
 
 export function createTicket(req, res) {
+
+    if(!isValidCustomer(req)){
+      return res.status(403).json({
+        message : "Unauthorized"
+      })
+    }
     const ticket = req.body;
     const newTicket = new Ticket(ticket);
   
@@ -31,6 +37,11 @@ export function getAllTickets(req, res) {
   }
 
   export function updateTicket(req, res) {
+    if(!isValidCustomer(req)){
+      return res.status(403).json({
+        message : "Unauthorized"
+      })
+    }
     const ticketId = req.body.ticketId;
     const updatedFields = req.body;
   
@@ -45,10 +56,15 @@ export function getAllTickets(req, res) {
   }
   
   export function closeTicket(req, res) {
-    const ticketId = req.body.ticketId;
+    if(!isValidCustomer(req)){
+      return res.status(403).json({
+        message : "Unauthorized"
+      })
+    }
+    const ticketId = req.params.ticketId;
+    const updatedField = { status: "Closed" }
   
-    Ticket.findByIdAndUpdate(ticketId, { status: "Closed" }, { new: true })
-      .then(ticket => {
+    Ticket.updateOne({ticketId: ticketId}, {$set: updatedField}).then(ticket => {
         if (!ticket) {
           return res.status(404).json({ message: "Ticket not found" });
         }
