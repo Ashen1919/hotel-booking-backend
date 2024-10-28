@@ -10,6 +10,7 @@ import roomRouter from "./routes/roomRoute.js";
 import bookingRouter from "./routes/bookingRoute.js";
 import feedbackRouter from "./routes/feedbackRoute.js";
 import ticketingRouter from "./routes/ticketingRoute.js";
+import cors from 'cors';
 dotenv.config();
 
 export function authenticateToken(req, res, next) {
@@ -32,6 +33,7 @@ export function authenticateToken(req, res, next) {
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use("/api/users/",userRouter)
 app.use("/api/gallery/",galleryItemRouter)
