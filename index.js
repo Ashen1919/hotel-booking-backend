@@ -26,7 +26,7 @@ export function authenticateToken(req, res, next) {
             return res.status(403).json({ message: 'Invalid or expired token' });
         }
 
-        req.user = user;  
+        req.body.user = user;  
         next();  
     });
 }
@@ -44,6 +44,8 @@ app.use("/api/feedback/", feedbackRouter)
 app.use("/api/ticket/", ticketingRouter)
 
 const mongoUrl = process.env.MONGO_URL;
+
+
 
 mongoose.connect(mongoUrl).then(
     ()=>{

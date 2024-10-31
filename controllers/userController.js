@@ -22,9 +22,11 @@ export function isValidCustomer(req){
     return true;
 }
 export function getUser(req,res){
+    const user = req.body.user
     User.find().then(
         (usersList)=>{
             res.json({
+                message: "User Found",
                 list : usersList
             })
         }
