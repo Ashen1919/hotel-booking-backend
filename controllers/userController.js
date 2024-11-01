@@ -21,17 +21,24 @@ export function isValidCustomer(req){
     }
     return true;
 }
-export function getUser(req,res){
+export function getUser(req, res) {
     const user = req.body.user
-    User.find().then(
-        (usersList)=>{
+    console.log(user)
+    User.find()
+        .then((usersList) => {
             res.json({
-                message: "User Found",
-                list : usersList
-            })
-        }
-    )
+                message: "Users found",
+                list: usersList,
+            });
+        })
+        .catch((error) => {
+            res.status(500).json({
+                message: "Failed to retrieve users",
+                error: error.message,
+            });
+        });
 }
+
 
 export function postUser(req,res){
     const user = req.body
