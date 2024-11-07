@@ -5,9 +5,10 @@ dotenv.config();
 
 
 export function addCategory(req,res){
-    if(!isValidAdmin(req)){
+    if(!isValidAdmin){
         return res.status(403).json({
             message : "Unauthorized"
+            
         })
     }
     const category = req.body
@@ -26,7 +27,7 @@ export function addCategory(req,res){
 }
 
 export function updateCategory(req,res){
-    if(!isValidAdmin(req)){
+    if(!isValidAdmin){
         return res.status(403).json({
             message : "Unauthorized"
         })
@@ -55,7 +56,7 @@ export function updateCategory(req,res){
 }
 
 export function deleteCategoryByParams(req,res){
-    if(!isValidAdmin(req)){
+    if(!isValidAdmin){
         return res.status(403).json({
             message : "Unauthorized"
         })
