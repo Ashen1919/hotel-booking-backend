@@ -7,7 +7,7 @@ const categoryRouter = express.Router();
 categoryRouter.post('/', authenticateToken, addCategory);
 categoryRouter.get('/', getCategory);
 categoryRouter.get('/:name',getCategoryByName)
-categoryRouter.put('/',authenticateToken, updateCategory)
+categoryRouter.put('/:name',authenticateToken, updateCategory)
 categoryRouter.delete('/:name',authenticateToken, deleteCategoryByParams)
 categoryRouter.delete('/',authenticateToken, deleteCategory) 
 

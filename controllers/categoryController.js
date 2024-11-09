@@ -32,17 +32,11 @@ export function updateCategory(req,res){
             message : "Unauthorized"
         })
     }
-    const name = req.body.name
-    const updatedFields = {};
+    const name = req.params.name
+    const updatedFields = req.body;
 
     
-    if (req.body.description) {
-        updatedFields.description = req.body.description;
-    }
-    if (req.body.price) {
-        updatedFields.price = req.body.price;
-    }
-
+   
     Category.updateOne({ name: name }, { $set: updatedFields }).then(()=>{
         res.status(200).json({
             message : "Category updated successfully"
