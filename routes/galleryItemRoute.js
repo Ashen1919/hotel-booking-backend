@@ -8,6 +8,6 @@ const galleryItemRouter = express.Router();
 galleryItemRouter.post("/",authenticateToken, createGalleryItem);
 galleryItemRouter.get("/",getGalleryItem);
 galleryItemRouter.put("/",authenticateToken, updateGalleryItem);
-galleryItemRouter.delete("/",authenticateToken, deleteGalleryItem);
+galleryItemRouter.delete("/:name",authenticateToken, deleteGalleryItem);
 
 export default galleryItemRouter;

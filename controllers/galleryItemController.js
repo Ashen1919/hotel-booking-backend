@@ -59,11 +59,12 @@ export function updateGalleryItem(req,res){
 }
 
 export function deleteGalleryItem(req,res){
-    if(!isValidAdmin(req)){
+    if(!isValidAdmin){
         return res.status(403).json({
             message : "Unauthorized"
         })
     }
+    const name = req.params.name
     GalleryItem.deleteOne({name : name}).then(()=>{
         res.status(200).json({
             message : "Gallery Item deleted successfully"
