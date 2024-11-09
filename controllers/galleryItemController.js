@@ -3,7 +3,7 @@ import { isValidAdmin } from "./userController.js"
 
 
 export function createGalleryItem(req,res){
-    if(!isValidAdmin(req)){
+    if(!isValidAdmin){
         return res.status(403).json({
             message : "Unauthorized"
         })
@@ -14,11 +14,11 @@ export function createGalleryItem(req,res){
     newGalleryItem.save().then(()=>{
         res.json({
             message : "Gallery Item creation successfully"
+        })
         }).catch(()=>{
             res.status(500).json({
                 message : "Gallery Item creation failed"
             })
-        })
     })
 }
 
