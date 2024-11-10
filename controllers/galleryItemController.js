@@ -31,21 +31,14 @@ export function getGalleryItem(req,res){
 }
 
 export function updateGalleryItem(req,res){
-    if(!isValidAdmin(req)){
+    if(!isValidAdmin){
         return res.status(403).json({
             message : "Unauthorized"
         })
     }
-    const name = req.body.name
-    const updatedFields = {};
+    const name = req.params.name
+    const updatedFields = req.body
 
-    
-    if (req.body.description) {
-        updatedFields.description = req.body.description;
-    }
-    if (req.body.image) {
-        updatedFields.image = req.body.image;
-    }
 
     GalleryItem.updateOne({ name: name }, { $set: updatedFields }).then(()=>{
         res.status(200).json({

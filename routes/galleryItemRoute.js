@@ -7,7 +7,7 @@ const galleryItemRouter = express.Router();
 
 galleryItemRouter.post("/",authenticateToken, createGalleryItem);
 galleryItemRouter.get("/",getGalleryItem);
-galleryItemRouter.put("/",authenticateToken, updateGalleryItem);
+galleryItemRouter.put("/:name",authenticateToken, updateGalleryItem);
 galleryItemRouter.delete("/:name",authenticateToken, deleteGalleryItem);
 
 export default galleryItemRouter;
