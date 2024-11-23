@@ -35,6 +35,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+    res.send('Hello, World! This is the root path.');
+  });
+
 app.use("/api/users/",userRouter)
 app.use("/api/gallery/",galleryItemRouter)
 app.use("/api/category/", categoryRouter)
@@ -44,7 +48,7 @@ app.use("/api/feedback/", feedbackRouter)
 app.use("/api/ticket/", ticketingRouter)
 
 const mongoUrl = process.env.MONGO_URL;
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 
 mongoose.connect(mongoUrl).then(
