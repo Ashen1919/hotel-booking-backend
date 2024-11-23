@@ -37,9 +37,7 @@ app.use(cors());
 
 app.use(cors({ origin: 'https://leonine-villa.vercel.app' }));
 
-app.get('/', (req, res) => {
-    res.send('Hello, World! This is the root path.');
-  });
+
 
 app.use("/api/users/",userRouter)
 app.use("/api/gallery/",galleryItemRouter)
