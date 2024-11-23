@@ -35,8 +35,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(cors({ origin: 'https://leonine-villa.vercel.app' }));
-
+app.use(cors({
+    origin: 'https://leonine-villa.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true // Allow cookies and authorization headers
+}));
 
 
 app.use("/api/users/",userRouter)
