@@ -44,7 +44,7 @@ app.use("/api/feedback/", feedbackRouter)
 app.use("/api/ticket/", ticketingRouter)
 
 const mongoUrl = process.env.MONGO_URL;
-
+const PORT = process.env.PORT || 8080;
 
 
 mongoose.connect(mongoUrl).then(
@@ -57,6 +57,6 @@ mongoose.connect(mongoUrl).then(
     }
 )
 
-app.listen(5000,(req,res)=>{
-    console.log("Server is run on 5000 port")
+app.listen(PORT,(req,res)=>{
+    console.log(`Server is run on ${PORT} port`)
 }); 
