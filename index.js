@@ -41,6 +41,9 @@ app.use(cors({
     credentials: true // Allow cookies and authorization headers
 }));
 
+app.get('/', (req, res) => {
+    res.send('Backend is running and CORS is configured!');
+  });
 
 app.use("/api/users/",userRouter)
 app.use("/api/gallery/",galleryItemRouter)
