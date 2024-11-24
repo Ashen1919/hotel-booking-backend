@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(cors({
-    origin: 'https://everpeak-lodge.vercel.app/',
+    origin: 'https://everpeak-lodge.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true // Allow cookies and authorization headers
 }));
