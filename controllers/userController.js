@@ -102,19 +102,25 @@ export function loginUser(req,res){
                     message : "Invalid password"
                 })
             }else{
-                const payLoad = {
-                    id : user._id,
-                    email : user.email,
-                    firstName : user.firstName,
-                    lastName : user.lastName,
-                    type : user.type
-                };
-                const token = jwt.sign(payLoad, process.env.JWT_KEY, {expiresIn: "48h"});
-                res.json({
-                    message : "User Found",
-                    user : user,
-                    token : token
-                })
+                try{
+                    const payLoad = {
+                        id : user._id,
+                        email : user.email,
+                        firstName : user.firstName,
+                        lastName : user.lastName,
+                        type : user.type
+                    };
+                    const token = jwt.sign(payLoad, process.env.JWT_KEY, {expiresIn: "48h"});
+                    res.json({
+                        message : "User Found",
+                        user : user,
+                        token : token
+                    })
+                }catch(error){
+                    res.json({
+                        error : error.message
+                    })
+                }
             }
 
             

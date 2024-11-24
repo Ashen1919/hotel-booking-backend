@@ -51,7 +51,7 @@ app.use("/api/feedback/", feedbackRouter)
 app.use("/api/ticket/", ticketingRouter)
 
 const mongoUrl = process.env.MONGO_URL;
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 
 mongoose.connect(mongoUrl).then(
