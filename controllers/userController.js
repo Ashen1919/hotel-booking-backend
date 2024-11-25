@@ -40,8 +40,8 @@ export function getUser(req, res) {
 
 
 export function postUser(req,res){
-    const user = req.body
     const password = req.body.password
+    const { firstName, lastName, email, whatsapp, user } = req.body;
 
     const saltRounds = 10
     const passwordHash = bcrypt.hashSync(password, saltRounds);
