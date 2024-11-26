@@ -39,33 +39,38 @@ export function getUser(req, res) {
 }
 
 
-export function postUser(req,res){
-    const password = req.body.password
-    const user = req.body
+export function postUser(req, res) {
+    const { password, firstName, lastName, email, whatsapp, profilePicture } = req.body;
 
-    const saltRounds = 10
+    // Hash the password
+    const saltRounds = 10;
     const passwordHash = bcrypt.hashSync(password, saltRounds);
-    user.password = passwordHash
 
+    // Create new user with hashed password and default profile picture if not provided
     const newUser = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password,
-        whatsapp: req.body.whatsapp,
-        profileImage: req.body.profilePicture || "https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/674578c80028b7645a44/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin"
-      });
-      
-    newUser.save().then(()=>{
+        firstName,
+        lastName,
+        email,
+        password: passwordHash, // Use hashed password
+        whatsapp,
+        profileImage: profilePicture || "https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/674578c80028b7645a44/view?project=672a1dc2000b4396bb7d&mode=admin",
+    });
+
+    // Save the user and handle possible errors
+    newUser
+        .save()
+        .then(() => {
             res.json({
-                message : "User created successfully"
-            })
-        }).catch((error)=>{
-            res.status(500).json({
-                error: error,
-                message : "Failed to Create user"
-            })
+                message: "User created successfully",
+            });
         })
+        .catch((error) => {
+            console.error("Error saving user:", error); // Log the error for debugging
+            res.status(500).json({
+                error: error.message, // Send a readable error message
+                message: "Failed to Create user",
+            });
+        });
 }
 
 export function putUser(req,res){
