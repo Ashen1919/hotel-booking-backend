@@ -22,10 +22,6 @@ const userSchema = mongoose.Schema({
     whatsapp : {
         type : String,
         required : true
-    },
-    phoneNumber : {
-        type : String,
-        required : true
     }, 
     password : {
         type : String,
@@ -33,12 +29,12 @@ const userSchema = mongoose.Schema({
     },
     disabled : {
         type : Boolean,
-        required : true,
+        required : false,
         default : false
     },
     emailVerified : {
         type : Boolean,
-        required : true,
+        required : false,
         default : false
     },
     
