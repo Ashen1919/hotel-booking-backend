@@ -41,15 +41,21 @@ export function getUser(req, res) {
 
 export function postUser(req,res){
     const password = req.body.password
-    const user  = req.body;
+    const user = req.body
 
     const saltRounds = 10
     const passwordHash = bcrypt.hashSync(password, saltRounds);
     user.password = passwordHash
 
-
-    const newUser = new User(user)
-
+    const newUser = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password,
+        whatsapp: req.body.whatsapp,
+        profileImage: req.body.profilePicture || "https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/674578c80028b7645a44/view?project=672a1dc2000b4396bb7d&project=672a1dc2000b4396bb7d&mode=admin"
+      });
+      
     newUser.save().then(()=>{
             res.json({
                 message : "User created successfully"
