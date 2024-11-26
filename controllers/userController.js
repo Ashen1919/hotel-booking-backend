@@ -54,8 +54,9 @@ export function postUser(req,res){
             res.json({
                 message : "User created successfully"
             })
-        }).catch(()=>{
-            res.json({
+        }).catch((error)=>{
+            res.status(500).json({
+                error: error,
                 message : "Failed to Create user"
             })
         })
