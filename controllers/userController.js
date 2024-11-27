@@ -27,7 +27,7 @@ export function getUser(req, res) {
         .then((usersList) => {
             res.json({
                 message: "Users found",
-                user: usersList
+                user: user
             });
         })
         .catch((error) => {
