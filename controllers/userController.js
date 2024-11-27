@@ -27,7 +27,7 @@ export function getUser(req, res) {
         .then((usersList) => {
             res.json({
                 message: "Users found",
-                user: usersList
+                user: user
             });
         })
         .catch((error) => {
@@ -40,7 +40,7 @@ export function getUser(req, res) {
 
 
 export function postUser(req, res) {
-    const { password, firstName, lastName, email, whatsapp, profilePicture } = req.body;
+    const { password, firstName, lastName, email, whatsapp, profileImage } = req.body;
 
     // Hash the password
     const saltRounds = 10;
@@ -53,7 +53,7 @@ export function postUser(req, res) {
         email,
         password: passwordHash, // Use hashed password
         whatsapp,
-        profileImage: profilePicture || "https://cloud.appwrite.io/v1/storage/buckets/672a1e700037c646954e/files/674578c80028b7645a44/view?project=672a1dc2000b4396bb7d&mode=admin",
+        profileImage,
     });
 
     // Save the user and handle possible errors
