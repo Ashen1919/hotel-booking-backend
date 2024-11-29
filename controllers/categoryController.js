@@ -96,7 +96,8 @@ export function getCategory(req,res){
         })
     }).catch((err)=>{
         res.status(500).json({
-            message : "Failed to get categories"
+            message : "Failed to get categories",
+            error: err
         })
     })
 }
