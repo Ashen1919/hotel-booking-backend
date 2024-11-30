@@ -3,11 +3,7 @@ import { isValidAdmin } from "./userController.js";
 
 
 export function createRoom(req,res){
-    if(!isValidAdmin(req)){
-        return res.status(403).json({
-            message : "Unauthorized"
-        })
-    }
+    
     const room = req.body
     const newRoom = new Room(room);
 
