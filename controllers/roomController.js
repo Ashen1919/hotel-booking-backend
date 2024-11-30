@@ -21,7 +21,7 @@ export function createRoom(req,res){
 }
 
 export function deleteRoom(req,res){
-    if(!isValidAdmin(req)){
+    if(!isValidAdmin){
         return res.status(403).json({
             message : "Unauthorized"
         })
