@@ -2,11 +2,6 @@ import Feedback from "../models/feedback.js";
 import { isValidAdmin, isValidCustomer } from "./userController.js";
 
 export function createFeedback(req, res) {
-  if (!isValidCustomer) {
-    return res.status(403).json({
-      message: "Unauthorized",
-    });
-  }
 
   const feedback = req.body;
   const newFeedback = new Feedback(feedback);

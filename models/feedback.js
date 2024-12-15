@@ -13,7 +13,7 @@ const feedBackSchema = mongoose.Schema({
     required: true,
     ref: "Booking"
   },
-  email: {
+  name: {
     type: String,
     required: true
   },
