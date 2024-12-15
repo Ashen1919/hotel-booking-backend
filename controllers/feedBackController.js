@@ -70,11 +70,12 @@ export function deleteFeedbackByParams(req,res){
 
   Category.deleteOne({feedbackId : feedbackId}).then(()=>{
       res.status(200).json({
-          message : "Category deleted successfully"
+          message : "Feedback deleted successfully"
       })
-  }).catch(()=>{
+  }).catch((err)=>{
       res.status(500).json({
-          message : "Failed to delete category"
+          message : "Failed to delete feedback",
+          error: err.message
       })
   })
 }
