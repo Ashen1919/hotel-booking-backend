@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const feedBackSchema = mongoose.Schema({
-    _id: String,
     
   feedbackId: {
     type: String,
