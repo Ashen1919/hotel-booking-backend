@@ -7,11 +7,6 @@ const feedBackSchema = mongoose.Schema({
     required: true,
     unique: true
   },
-  bookingId: {
-    type: String,
-    required: true,
-    ref: "Booking"
-  },
   name: {
     type: String,
     required: true

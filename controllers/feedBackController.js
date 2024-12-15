@@ -1,20 +1,26 @@
 import Feedback from "../models/feedback.js";
+import { v4 as uuidv4 } from "uuid";
 import { isValidAdmin, isValidCustomer } from "./userController.js";
 
 export function createFeedback(req, res) {
+  const feedback = {
+    ...req.body,
+    feedbackId: uuidv4(), 
+  };
 
-  const feedback = req.body;
   const newFeedback = new Feedback(feedback);
 
-  newFeedback.save().then(() => {
+  newFeedback
+    .save()
+    .then(() => {
       res.status(200).json({
-        message: "Feedback creation successfully",
+        message: "Feedback created successfully",
       });
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Failed to create a feedback",
-        error: err.message
+        message: "Failed to create feedback",
+        error: err.message,
       });
     });
 }
