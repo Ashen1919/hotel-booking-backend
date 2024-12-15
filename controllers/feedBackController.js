@@ -11,9 +11,10 @@ export function createFeedback(req, res) {
         message: "Feedback creation successfully",
       });
     })
-    .catch(() => {
+    .catch((err) => {
       res.status(500).json({
         message: "Failed to create a feedback",
+        error: err
       });
     });
 }
