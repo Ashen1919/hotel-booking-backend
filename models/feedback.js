@@ -28,8 +28,7 @@ const feedBackSchema = mongoose.Schema({
     default: ""
   },
   occupation: {
-    type: String,
-    default: ""
+    type: String
   },
   approved: {
     type: Boolean,
