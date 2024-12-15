@@ -5,7 +5,7 @@ import { approveFeedback, createFeedback, deleteFeedbackByParams, getApprovedFee
 const feedbackRouter = express.Router()
 
 feedbackRouter.post("/", createFeedback)
-feedbackRouter.get("/", authenticateToken, getApprovedFeedback)
+feedbackRouter.get("/", getApprovedFeedback)
 feedbackRouter.put("/", authenticateToken, approveFeedback)
 feedbackRouter.delete("/", authenticateToken, deleteFeedbackByParams)
 
