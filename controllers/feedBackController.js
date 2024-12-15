@@ -59,3 +59,23 @@ export function approveFeedback(req, res) {
         });
 }
 
+export function deleteFeedbackByParams(req,res){
+  if(!isValidAdmin){
+      return res.status(403).json({
+          message : "Unauthorized"
+      })
+  }
+
+  const feedbackId = req.params.feedbackId
+
+  Category.deleteOne({feedbackId : feedbackId}).then(()=>{
+      res.status(200).json({
+          message : "Category deleted successfully"
+      })
+  }).catch(()=>{
+      res.status(500).json({
+          message : "Failed to delete category"
+      })
+  })
+}
+
