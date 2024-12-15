@@ -26,14 +26,11 @@ export function createFeedback(req, res) {
 }
 
 export function getApprovedFeedback(req, res) {
-    if(!isValidAdmin){
-        return res.status(403).json({
-            message : "Unathorized"
-        })
-    }
 
-  Feedback.find({approved : true}).then((feedbacks) => {
-      res.status(200).json(feedbacks);
+  Feedback.find().then((feedbacks) => {
+      res.status(200).json({
+        feedbacks: feedbacks
+      });
     })
     .catch(() => {
       res.status(500).json({ message: "Failed to retrieve feedbacks" });
