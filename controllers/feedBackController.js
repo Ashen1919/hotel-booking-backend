@@ -44,7 +44,7 @@ export function approveFeedback(req, res) {
         });
     }
     
-    const feedbackId = req.body.feedbackId;
+    const feedbackId = req.params.feedbackId;
     const updatedFields = { approved: true }; 
 
     Feedback.updateOne({ feedbackId: feedbackId }, { $set: updatedFields }).then(() => {
