@@ -68,7 +68,7 @@ export function deleteFeedbackByParams(req,res){
 
   const feedbackId = req.params.feedbackId
 
-  Category.deleteOne({feedbackId : feedbackId}).then(()=>{
+  Feedback.deleteOne({feedbackId : feedbackId}).then(()=>{
       res.status(200).json({
           message : "Feedback deleted successfully"
       })
@@ -80,3 +80,23 @@ export function deleteFeedbackByParams(req,res){
   })
 }
 
+export function deleteFeedback(req,res){
+  if(!isValidAdmin){
+      return res.status(403).json({
+          message : "Unauthorized"
+      })
+  }
+
+  const feedbackId = req.body.feedbackId
+
+  Feedback.deleteOne({feedbackId : feedbackId}).then(()=>{
+      res.status(200).json({
+          message : "Feedback deleted successfully"
+      })
+  }).catch((err)=>{
+      res.status(500).json({
+          message : "Failed to delete feedback",
+          error: err.message
+      })
+  })
+}
