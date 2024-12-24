@@ -23,12 +23,17 @@ export function isValidCustomer(req){
 }
 export function getUser(req, res) {
     const user = req.body.user
+    if (!user) {
+        return res.status(400).json({
+            message: "User data is missing in the request body",
+        });
+    }
     User.find()
         .then((usersList) => {
             res.json({
                 message: "Users found",
-                user: usersList,
-                Oneuser: user
+                user: user,
+                users: usersList
             });
         })
         .catch((error) => {
