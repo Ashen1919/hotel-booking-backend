@@ -22,12 +22,13 @@ export function isValidCustomer(req){
     return true;
 }
 export function getUser(req, res) {
-    const user = req.body.user
+    const user = req.body
     User.find()
         .then((usersList) => {
             res.json({
                 message: "Users found",
-                user: user
+                user: user,
+                users: usersList
             });
         })
         .catch((error) => {
