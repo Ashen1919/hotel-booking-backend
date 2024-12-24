@@ -4,7 +4,7 @@ import { getUser, postUser, putUser, deleteUser, loginUser } from "../controller
 
 const router = express.Router();
 
-router.get("/", authenticateToken, getUser);
+router.get("/", getUser);
 router.post("/login", loginUser);
 router.post("/signup", postUser);
 router.put("/", authenticateToken, putUser);
