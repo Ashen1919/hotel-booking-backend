@@ -39,6 +39,9 @@ const bookingSchema = mongoose.Schema({
     timeStamp : {
         type : Date,
         default : Date.now
+    },
+    maxGuests : {
+        type : Number
     }
 })
 
