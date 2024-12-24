@@ -39,6 +39,24 @@ export function getUser(req, res) {
         });
 }
 
+export function findByEmail(req, res) {
+    const email = req.params.email
+    User.findOne({ email: email }).then((result) => {
+        if (result == null) {
+            res.status(404).json({
+                message: "User not found"
+            });
+        } else {
+            res.status(200).json({
+                user: result
+            });
+        }
+    }).catch(() => {
+        res.status(500).json({
+            message: "Failed to get users"
+        });
+    });
+}
 
 export function postUser(req, res) {
     const { password, firstName, lastName, email, whatsapp, profileImage } = req.body;
