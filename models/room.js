@@ -32,7 +32,7 @@ const roomSchema = new mongoose.Schema({
     },
     notes : {
         type : String,
-        default : "The Room is booked"
+        default : ""
     },
     price: {
         type : Number
