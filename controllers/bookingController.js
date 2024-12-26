@@ -3,7 +3,7 @@ import { isValidAdmin, isValidCustomer } from "./userController.js";
 
 
 export function createBooking(req,res){
-    
+
     const startingId = 1001;
     const roomId = req.body.roomId
 
@@ -63,11 +63,6 @@ export function getBooking(req,res){
 }
 
 export function cancelBooking(req,res){
-    if(!isValidAdmin && !isValidCustomer){
-        res.status(403).json({
-            message : "Unauthorized to cancel booking"
-        })
-    }
     const bookingId = req.body.bookingId
     Booking.findOne({bookingId : bookingId}).then((booking)=>{
         if(!booking){
@@ -99,11 +94,6 @@ export function cancelBooking(req,res){
 }
 
 export function updateBooking(req,res){
-    if(!isValidAdmin && !isValidCustomer){
-        res.status(403).json({
-            message : "Unauthorized to cancel booking"
-        })
-    }
     const bookingId = req.params.bookingId
     Booking.findOne({bookingId: bookingId}).then((booking)=>{
         if(!booking){
@@ -130,11 +120,6 @@ export function updateBooking(req,res){
     })
 }
 export function confirmBooking(req,res){
-    if(!isValidAdmin(req)){
-        res.status(403).json({
-            message : "Unauthorized to confirm booking"
-        })
-    }
     const {bookingId, roomId} = req.params
    
     Booking.findOne({ bookingId: bookingId, roomId: roomId} ).then((booking)=>{
