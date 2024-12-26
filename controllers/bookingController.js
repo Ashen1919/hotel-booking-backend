@@ -3,12 +3,7 @@ import { isValidAdmin, isValidCustomer } from "./userController.js";
 
 
 export function createBooking(req,res){
-    if(!isValidCustomer(req)){
-        return res.status(403).json({
-            message : "Unauthorized"
-        })
-    }
-
+    
     const startingId = 1001;
     const roomId = req.body.roomId
 

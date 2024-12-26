@@ -4,7 +4,7 @@ import { cancelBooking, confirmBooking, createBooking, getBooking, updateBooking
 
 const bookingRouter = express.Router();
 
-bookingRouter.post("/", authenticateToken, createBooking)
+bookingRouter.post("/",createBooking)
 bookingRouter.get("/", getBooking)
 bookingRouter.put("/", authenticateToken, cancelBooking)
 bookingRouter.put("/:bookingId", authenticateToken, updateBooking)
