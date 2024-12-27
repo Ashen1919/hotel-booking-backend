@@ -107,7 +107,7 @@ export function putUser(req,res){
 }
 
 export function deleteUser(req,res){
-    const email = req.body.email
+    const email = req.params.email
     User.deleteOne({email : email}).then(()=>{
         res.json({
             message : "User deleted successfully"

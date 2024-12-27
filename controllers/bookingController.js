@@ -64,6 +64,7 @@ export function getBooking(req,res){
 
 export function cancelBooking(req,res){
     const bookingId = req.body.bookingId
+
     Booking.findOne({bookingId : bookingId}).then((booking)=>{
         if(!booking){
             res.status(404).json({
