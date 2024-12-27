@@ -8,7 +8,7 @@ router.get("/", getUser);
 router.get("/:email", findByEmail);
 router.post("/login", loginUser);
 router.post("/signup", postUser);
-router.put("/", authenticateToken, putUser);
+router.put("/:email", putUser);
 router.delete("/:email", deleteUser);
 
 export default router;

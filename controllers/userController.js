@@ -93,15 +93,16 @@ export function postUser(req, res) {
 }
 
 export function putUser(req,res){
-    const email = req.body.email
-    const firstName = req.body.firstName
-    User.updateOne({email : email}, {firstName : firstName}).then(()=>{
+    const email = req.params.email
+    const updateInfo = req.body
+    User.updateOne({email : email}, {$set : updateInfo}).then(()=>{
         res.json({
             message : "User updated successfully"
         })
-    }).catch(()=>{
+    }).catch((err)=>{
         res.json({
-            message : "Failed to update"
+            message : "Failed to update",
+            error: err.message
         })
     })
 }
