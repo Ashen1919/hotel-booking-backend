@@ -62,6 +62,22 @@ export function getBooking(req,res){
 
 }
 
+export function getBookingByEmail(req,res){
+    const email = req.params.email
+
+    Booking.find({email: email}).then((getBooking)=>{
+        res.status(200).json({
+            List : getBooking
+        })
+    }).catch((err)=>{
+        res.status(500).json({
+            message : "Failed to get Booking List",
+            Error : err
+        })
+    })
+
+}
+
 export function cancelBooking(req,res){
     const bookingId = req.body.bookingId
 
